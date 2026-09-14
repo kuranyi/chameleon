@@ -1,0 +1,10 @@
+.DS_Store
+*.swp
+
+# Build output
+build/
+*.app
+
+# Generated from MakeIcon.swift by mac/make-icon.sh
+mac/AppIcon.png
+mac/AppIcon.iconset/
