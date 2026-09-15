@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 struct ContentView: View {
     @EnvironmentObject var conv: Converter
     @State private var dropTargeted = false
+    @State private var emptyHovering = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -43,11 +44,16 @@ struct ContentView: View {
                     Text("Drop files here")
                         .font(.title3)
                         .foregroundStyle(.secondary)
-                    Text("or use Add Files…")
+                    Text("or click to choose files")
                         .font(.caption)
                         .foregroundStyle(.tertiary)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(emptyHovering && !conv.isRunning ? Color.primary.opacity(0.04) : Color.clear)
+                .contentShape(Rectangle())
+                .onHover { emptyHovering = $0 }
+                .onTapGesture { if !conv.isRunning { chooseFiles() } }
+                .help("Click to choose files")
             } else {
                 ScrollView {
                     LazyVStack(spacing: 0) {
